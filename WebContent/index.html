@@ -10,14 +10,30 @@
 
 	<link rel="stylesheet" href="css/leaflet.css" />
 	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/jstree.css" />
 </head>
 <body>
 	<div id="map"></div>
 	<div id="search">
-		<input class="search" type="text" id="searchBox" value="Anguilla" />
+		<h2>Alexandria Digital Library</h2><br/>
+		<input class="search" type="text" id="uxSearchTerm" value="angola" /><br/>
+		<div id="uxSearchExtent">Map Extent</div><br/>
+		<br/>
+		Feature Type:<br/><div id="jstree_demo_div" style="height:150px;width:100%;overflow-y:scroll;position:relative"></div>
 		<div id="search_submit" onclick="onSearch();">SEARCH</div>
 	</div>
+	<div id="wrapperResults">
+		<div style="float:left;width:50%">
+			<div id="resultsHeader"></div>
+			<div id="results"></div>
+		</div>
+		<div style="float:left;width:50%">
+			<div id="entityHeader"></div>
+			<div id="entity"></div>
+		</div>
+	</div>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/jstree.js"></script>
 	<script src="js/leaflet.min.js"></script>
 	<script src="js/stamen.js"></script>
 	<script src="js/wkt_base.js"></script>

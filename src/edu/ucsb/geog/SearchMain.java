@@ -21,20 +21,18 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;	
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
-import com.hp.hpl.jena.rdf.model.RDFNode;
 
 
 
-@WebServlet("/GetGeometry")
-public class GetGeometry extends HttpServlet {
+@WebServlet("/SearchMain")
+public class SearchMain extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private String entitiesWithGeometry =  "SELECT ?a WHERE { ?a stko:hasPrimaryName ?b . ?a stko:hasAlternateName ?c . FILTER (regex(str(?b), "+StringPrefix.placeHolder+") || regex(str(?c), "+StringPrefix.placeHolder+")) } limit 100";
 			//"SELECT ?p ?g WHERE {?p stko:hasName "+StringPrefix.placeHolder+" . ?p stko:hasGeometry ?g}";
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetGeometry() {
+    public SearchMain() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,23 +41,30 @@ public class GetGeometry extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		request.setCharacterEncoding("UTF-8");		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		String entityURI = request.getParameter("country");
-		if(entityURI.equals(""))
-			entityURI = "Angola";
-		entityURI = "\""+entityURI+"\"";
-		getEntityDetailInfo(entityURI,out);
+		String searchTerm = "";
+        String searchFeatures = "";
+        if (request.getParameterMap().containsKey("q")) {
+        	searchTerm = request.getParameter("q");
+        }
+        if (request.getParameterMap().containsKey("ft")) {
+        	searchFeatures = request.getParameter("ft");
+        }
+        if (searchTerm.length() > 2) {
+        	getEntityDetailInfo(searchTerm, searchFeatures, out);
+        } else {
+        	out.print("Please supply more than 2 characters");
+        }
 	}
 
-	private void getEntityDetailInfo(String entityURI, PrintWriter out) {
+	private void getEntityDetailInfo(String searchTerm, String searchFeatures, PrintWriter out) {
 
-		String thisQueryString = entitiesWithGeometry.replace(StringPrefix.placeHolder, entityURI);
-		
-		Query query = QueryFactory.create(StringPrefix.queryPrefix+thisQueryString);  
+		Query query = QueryFactory.create(StringPrefix.queryPrefix+"SELECT distinct ?a (str(?b) AS ?name) ?c WHERE {?a stko:hasPrimaryName ?b . ?a stko:hasAlternateName ?d . ?a rdf:type ?c . FILTER( regex(str(?b), \""+searchTerm+"\") || regex(str(?d), \""+searchTerm+"\") ) }"); 
+
 		QueryExecution qe = QueryExecutionFactory.sparqlService(StringPrefix.serviceEndpoint,query);
 		try 
 		{
@@ -72,53 +77,23 @@ public class GetGeometry extends HttpServlet {
 			    List<QuerySolution> resultList = ResultSetFormatter.toList(rs);
 			    Iterator<QuerySolution> iterator = resultList.iterator();
 			    
-			    boolean bodyPropertyFound = false;
 			    while(iterator.hasNext())
 			    {  
 			    	QuerySolution thisInfoRecord = iterator.next();
 			    	
 			    	JSONObject thisJsonTriple = new JSONObject();
-			    	String propertyName = thisInfoRecord.get("?a").asResource().getLocalName();
+			    	String displayName = thisInfoRecord.get("?name").asLiteral().getString();
+			    	String uri = thisInfoRecord.get("?a").asResource().getURI();
+			    	String featureType = thisInfoRecord.get("?c").toString();
+			    	String[] featureParts = featureType.split("#");
 			    	
-			    	
-			    	String propertyURI = thisInfoRecord.get("?a").asResource().getURI();	
-			    	thisJsonTriple.put("propertyName",propertyName);
-			    	thisJsonTriple.put("propertyURI",propertyURI);
-			    	
-			    	/* RDFNode objectRdfNode = thisInfoRecord.get("?g");
-			    	String objectName = null;
-			    	if(objectRdfNode.isLiteral())
-			    	{
-			    		objectName = objectRdfNode.asLiteral().getString();
-			    		if(objectName.startsWith("http://"))			    			
-			    			thisJsonTriple.put("valueType",2);
-			    		else {
-			    			thisJsonTriple.put("valueType",0);
-						}
-			    	}
-			    	else 
-			    	{
-			    		objectName = objectRdfNode.asResource().getURI();
-			    		if(objectName.startsWith("http://data.linkededucation.org/resource/lak"))
-			    			thisJsonTriple.put("valueType",1);
-			    		else {
-			    			thisJsonTriple.put("valueType",2);
-						}
-			    		
-					} */
-			    	/*objectName = objectName.replace("(","[");
-			    	objectName = objectName.replace(")","]");
-			    	objectName = objectName.replace(",","],[");
-			    	objectName = objectName.replace(" ",",");
-			    	objectName = objectName.replace("MULTIPOLYGON","");
-			    	objectName = "["+objectName+"]";
-			    	JSONArray r = new JSONArray(objectName); */
-			    	//thisJsonTriple.put("value", objectName);
-			    	//tripleArray.put(thisJsonTriple);
-			    	
+			    	thisJsonTriple.put("name",displayName);
+			    	thisJsonTriple.put("uri",uri);
+			    	thisJsonTriple.put("ft",featureParts[1]);
+			    	tripleArray.put(thisJsonTriple);
 			    }
 			    	
-			    parentObject.put("triples", tripleArray);
+			    parentObject.put("c", tripleArray);
 			    out.print(parentObject.toString());
 			}
 		} 

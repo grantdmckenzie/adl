@@ -43,13 +43,15 @@ public class Combined {
                     + "\ud800\udc00-\udbff\udfff"
                     + "]";
 			
-			for(int z=33;z<46;z++) {
+			for(int z=0;z<46;z++) {
 				int offset = z*100000;
 			    String sqlquery="SELECT * FROM tbl_combined_agg ORDER BY feature_id LIMIT 100000 OFFSET "+offset+";";
 			    
 			    ResultSet results= ex.s.executeQuery(sqlquery);
 			    Model model = ModelFactory.createDefaultModel();
 			    String adlgaz = "http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#";
+			    String rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+			    String muenster = "http://ifgi.uni-muenster.de/simcat/ontology/ftt#";
 			    model.setNsPrefix("adlgaz", "http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#");
 			    Property hasPrimaryName = model.createProperty(adlgaz+	"hasPrimaryName");
 			    Property hasAlternateName = model.createProperty(adlgaz+	"hasAlternateName");
@@ -59,7 +61,7 @@ public class Combined {
 			    Property onPlanet = model.createProperty(adlgaz+	"onPlanet");
 			    Property hasEntryDate = model.createProperty(adlgaz+	"hasEntryDate");
 			    Property hasModifiedDate = model.createProperty(adlgaz+	"hasModifiedDate");
-			    // Property hasFeatureType = model.createProperty(adlgaz+	"hasFeatureType");
+			    Property hasFeatureType = model.createProperty(rdf+ "type");
 			    Property hasSchema = model.createProperty(adlgaz+	"hasSchema");
 			    Resource place = null;
 			    String primaryname = null;
@@ -94,16 +96,16 @@ public class Combined {
 		           place.addProperty(hasEntryDate , model.createTypedLiteral(results.getString("entry_date"), XSDDatatype.XSDdate));
 		           place.addProperty(hasModifiedDate , model.createTypedLiteral(results.getString("modification_date"), XSDDatatype.XSDdate));
 		           place.addProperty(hasID , results.getString("feature_id"));
-		
+		           place.addProperty(hasFeatureType , muenster+results.getString("term").toLowerCase().replace(" ", "_"));
 		    	  
 				}	
 			    // StmtIterator iter = model.listStatements();
 			    if (offset > 3200000) {
-			    	FileOutputStream out = new FileOutputStream(offset+".nt");
+			    	FileOutputStream out = new FileOutputStream("data/"+offset+".nt");
 					model.write(out,"N-TRIPLES");
 					System.out.print("Offset: "+offset+"\n");
 			    } else {
-			       FileOutputStream out = new FileOutputStream(offset+".xml");
+			       FileOutputStream out = new FileOutputStream("data/"+offset+".xml");
 				   //model.write(out,"N-TRIPLES");
 			       model.write(out,"RDF/XML-ABBREV");
 				   System.out.print("Offset: "+offset+"\n");

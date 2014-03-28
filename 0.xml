@@ -1,0 +1,215 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:adlgaz="http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#">
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/afghanistan">
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:hasAlternateName>Afghanistan, Kingdom of</adlgaz:hasAlternateName>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasAlternateName>Afghanestan, Dowlat-e Padshahi-ye</adlgaz:hasAlternateName>
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:hasAlternateName>Afghanistan, Doulat i Jumhouri ye</adlgaz:hasAlternateName>
+    <adlgaz:hasExtent>POLYGON ((75.6500015258789060 39.1100006103515620,75.6500015258789060 28.6599998474121090,59.9000015258789060 28.6599998474121090,59.9000015258789060 39.1100006103515620,75.6500015258789060 39.1100006103515620,))</adlgaz:hasExtent>
+    <adlgaz:hasAlternateName xml:lang="per">Afghanestan, Dowlat-e Eslami-ye</adlgaz:hasAlternateName>
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+    <adlgaz:hasAlternateName>Afghanestan, Jomhuri-ye Demowkratik-e</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Da Afghanestan Shahi Dowlat</adlgaz:hasAlternateName>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+    <adlgaz:hasID>1</adlgaz:hasID>
+    <adlgaz:hasAlternateName>Afghanestan, Jomhuri-ye</adlgaz:hasAlternateName>
+    <adlgaz:hasPrimaryName xml:lang="en">Afghanistan</adlgaz:hasPrimaryName>
+    <adlgaz:hasAlternateName>Afghanestan</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Afghanistan, Islamic State of</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Afghanistan, Democratic Republic of</adlgaz:hasAlternateName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/australia">
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:hasID>8</adlgaz:hasID>
+    <adlgaz:hasExtent>POLYGON ((155.7200012207031200 -8.8800001144409180,155.7200012207031200 -45.7299995422363280,111.2200012207031200 -45.7299995422363280,111.2200012207031200 -8.8800001144409180,155.7200012207031200 -8.8800001144409180,))</adlgaz:hasExtent>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasPrimaryName xml:lang="en">Australia</adlgaz:hasPrimaryName>
+    <adlgaz:hasAlternateName>Australia, Commonwealth of</adlgaz:hasAlternateName>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/argentina">
+    <adlgaz:hasPrimaryName xml:lang="en">Argentina</adlgaz:hasPrimaryName>
+    <adlgaz:hasAlternateName xml:lang="spa">Argentina, Republica</adlgaz:hasAlternateName>
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+    <adlgaz:hasAlternateName>Argentine Republic</adlgaz:hasAlternateName>
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:hasExtent>POLYGON ((-51.7599983215332030 -20.2500000000000000,-51.7599983215332030 -56.7099990844726560,-74.9700012207031250 -56.7099990844726560,-74.9700012207031250 -20.2500000000000000,-51.7599983215332030 -20.2500000000000000,))</adlgaz:hasExtent>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:hasAlternateName>La Argentina</adlgaz:hasAlternateName>
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasID>6</adlgaz:hasID>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/austria">
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+    <adlgaz:hasPrimaryName xml:lang="en">Austria</adlgaz:hasPrimaryName>
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:hasID>9</adlgaz:hasID>
+    <adlgaz:hasAlternateName>Osterreich</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName xml:lang="ger">Osterreich, Republik</adlgaz:hasAlternateName>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:hasAlternateName>Austria, Republic of</adlgaz:hasAlternateName>
+    <adlgaz:hasExtent>POLYGON ((17.9300003051757810 49.3800010681152340,17.9300003051757810 45.9900016784667970,9.2700004577636719 45.9900016784667970,9.2700004577636719 49.3800010681152340,17.9300003051757810 49.3800010681152340,))</adlgaz:hasExtent>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/armenia">
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:hasExtent>POLYGON ((47.0699996948242190 41.4799995422363280,47.0699996948242190 38.6800003051757810,43.5299987792968750 38.6800003051757810,43.5299987792968750 41.4799995422363280,47.0699996948242190 41.4799995422363280,))</adlgaz:hasExtent>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasAlternateName xml:lang="arm">Hayastani Hanrapetut'yun</adlgaz:hasAlternateName>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+    <adlgaz:hasID>7</adlgaz:hasID>
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:hasAlternateName>Hayastan</adlgaz:hasAlternateName>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+    <adlgaz:hasAlternateName>Armenia, Republic of</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Armyanskaya Sovetskaya Sotsialisticheskaya Respublika</adlgaz:hasAlternateName>
+    <adlgaz:hasPrimaryName xml:lang="en">Armenia</adlgaz:hasPrimaryName>
+    <adlgaz:hasAlternateName>Armenian Soviet Socialist Republic</adlgaz:hasAlternateName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/angola">
+    <adlgaz:hasAlternateName>Portugiesisch Westafrika</adlgaz:hasAlternateName>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+    <adlgaz:hasAlternateName>Angola, Republic of</adlgaz:hasAlternateName>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasAlternateName>Angola, Provincia de</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Africa Ocidental Portuguesa</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Angola, Republica Popular de</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Angola, Estado de</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName xml:lang="por">Angola, Republica de</adlgaz:hasAlternateName>
+    <adlgaz:hasExtent>POLYGON ((24.9699993133544920 -3.8399999141693115,24.9699993133544920 -18.6800003051757810,11.3100004196166990 -18.6800003051757810,11.3100004196166990 -3.8399999141693115,24.9699993133544920 -3.8399999141693115,))</adlgaz:hasExtent>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:hasAlternateName>Portuguese West Africa</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Angola, Colonia de</adlgaz:hasAlternateName>
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:hasID>4</adlgaz:hasID>
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:hasPrimaryName xml:lang="en">Angola</adlgaz:hasPrimaryName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/albania">
+    <adlgaz:hasExtent>POLYGON ((21.3899993896484380 42.7099990844726560,21.3899993896484380 39.4199981689453120,19.3600006103515620 39.4199981689453120,19.3600006103515620 42.7099990844726560,21.3899993896484380 42.7099990844726560,))</adlgaz:hasExtent>
+    <adlgaz:hasAlternateName>Albaniya</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Arnautluk</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Albanie</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Sheypeni</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Albania, People's Socialist Republic of</adlgaz:hasAlternateName>
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:hasAlternateName>Shqiprija</adlgaz:hasAlternateName>
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+    <adlgaz:hasPrimaryName xml:lang="en">Albania</adlgaz:hasPrimaryName>
+    <adlgaz:hasAlternateName>Shqipnija</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqipnie</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqipenia</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqypeni</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Albania, Republic of</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shkipeni</adlgaz:hasAlternateName>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+    <adlgaz:hasAlternateName xml:lang="alb">Shqiperia</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqipri</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName xml:lang="alb">Shqiperise, Republika e</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Albanien</adlgaz:hasAlternateName>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasID>2</adlgaz:hasID>
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:hasAlternateName>Shqiperise, Republika Popullore e</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqypni</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqiperi</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqipni</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqipnia</adlgaz:hasAlternateName>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:hasAlternateName>Albania, Peoples Republic of</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqiperise, Republika Popullore Socialiste e</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Albanija</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Shqipria</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Alvania</adlgaz:hasAlternateName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/algeria">
+    <adlgaz:hasAlternateName>Algerie</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName xml:lang="ara">Jaza'iriyah ad Dimuqratiyah ash Shabiyah, Al Jumhuriyah al</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Algeria, Republic of</adlgaz:hasAlternateName>
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:hasAlternateName>Al-Jaza'ir</adlgaz:hasAlternateName>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasID>3</adlgaz:hasID>
+    <adlgaz:hasAlternateName>La Republique Algerienne</adlgaz:hasAlternateName>
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:hasAlternateName>La Republique Algerienne Democratique et Populaire</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Algeria, Democratic People's Republic of</adlgaz:hasAlternateName>
+    <adlgaz:hasPrimaryName xml:lang="en">Algeria</adlgaz:hasPrimaryName>
+    <adlgaz:hasAlternateName xml:lang="ara">Al Jaza'ir</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Algeria, People's Democratic Republic of</adlgaz:hasAlternateName>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+    <adlgaz:hasAlternateName>Algerienne Democratique et Populaire, Republique</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>L'Algerie</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>L'Etat Algerien</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Argelia</adlgaz:hasAlternateName>
+    <adlgaz:hasExtent>POLYGON ((13.1899995803833010 38.1399993896484380,13.1899995803833010 17.9400005340576170,-9.4700002670288086 17.9400005340576170,-9.4700002670288086 38.1399993896484380,13.1899995803833010 38.1399993896484380,))</adlgaz:hasExtent>
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:hasAlternateName>Algeria, Democratic and Popular Republic of</adlgaz:hasAlternateName>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/azerbaijan">
+    <adlgaz:hasAlternateName>Azerbaydzhanskaya SSR</adlgaz:hasAlternateName>
+    <adlgaz:hasExtent>POLYGON ((50.9599990844726560 42.2000007629394530,50.9599990844726560 38.0400009155273440,44.5800018310546880 38.0400009155273440,44.5800018310546880 42.2000007629394530,50.9599990844726560 42.2000007629394530,))</adlgaz:hasExtent>
+    <adlgaz:hasAlternateName>Azerbaydzhanskaya Sovetskaya Sotsialisticheskaya Respublika</adlgaz:hasAlternateName>
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:hasAlternateName>Azerbaijani Republic</adlgaz:hasAlternateName>
+    <adlgaz:hasID>10</adlgaz:hasID>
+    <adlgaz:hasAlternateName>Azarbaycan</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Azerbaijan Soviet Socialist Republic</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName xml:lang="aze">Azarbaycan Respublikasi</adlgaz:hasAlternateName>
+    <adlgaz:hasPrimaryName xml:lang="en">Azerbaijan</adlgaz:hasPrimaryName>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasAlternateName>Azerbaydzhan Soviet Socialist Republic</adlgaz:hasAlternateName>
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+    <adlgaz:hasAlternateName>Azarbayjan Respublikasy</adlgaz:hasAlternateName>
+    <adlgaz:hasAlternateName>Azerbaijan, Republic of</adlgaz:hasAlternateName>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:hasAlternateName>Azerbaidzhanian Soviet Socialist Republic</adlgaz:hasAlternateName>
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://adl-gazetteer.geog.ucsb.edu/ADL/antarctica">
+    <adlgaz:hasFeatureType>countries</adlgaz:hasFeatureType>
+    <adlgaz:hasID>5</adlgaz:hasID>
+    <adlgaz:hasModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >2004-02-25</adlgaz:hasModifiedDate>
+    <adlgaz:hasEntryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date"
+    >1998-11-06</adlgaz:hasEntryDate>
+    <adlgaz:hasExtent>POLYGON ((180.0000000000000000 -62.8300018310546880,180.0000000000000000 -90.0000000000000000,-180.0000000000000000 -90.0000000000000000,-180.0000000000000000 -62.8300018310546880,180.0000000000000000 -62.8300018310546880,))</adlgaz:hasExtent>
+    <adlgaz:hasSchema>ADL Feature Type Thesaurus</adlgaz:hasSchema>
+    <adlgaz:hasDescription></adlgaz:hasDescription>
+    <adlgaz:onPlanet>Earth</adlgaz:onPlanet>
+    <adlgaz:hasPrimaryName xml:lang="en">Antarctica</adlgaz:hasPrimaryName>
+  </rdf:Description>
+</rdf:RDF>
