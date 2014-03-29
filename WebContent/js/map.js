@@ -23,7 +23,7 @@ $(function () {
 	
 	String.prototype.capitalize = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
-	}
+	};
 });
 
 function onSearch() {
@@ -70,17 +70,25 @@ function getEntityDetails(uri) {
 		});	
 }
 function displayEntityInfo(data) {
-	var header = "<h2>Selected Entity</h2>There are "+data.length+" relations assigned to this entity";
-	$('#entityHeader').html(header);
+	var primaryName = "";
 	var content = "<table><tr><td class=\"resultEntity\" style=\"text-decoration:none;font-weight:bold;\">Entity</td><td class=\"resultEntity\" style=\"text-decoration:none;font-weight:bold;\">Feature Type</td></tr>";
 	for(var i in data) {
-		content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td class=\"resultEntity\">" + data[i].val + "</td></tr>";
+		
 		if(data[i].rel == "hasExtent") {
 			mapData(data[i].val);
 		}
+		if(data[i].rel == "hasPrimaryName") {
+			primaryName = data[i].val.replace("@en","");
+		}
+		if (data[i].rel == "relatedFeature") {
+			content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td style=\"cursor:pointer;text-decoration: underline;\" class=\"resultEntity\" onclick=\"getEntityDetails('"+data[i].val+"')\">" + data[i].val + "</td></tr>";
+		} else {
+			content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td class=\"resultEntity\">" + data[i].val + "</td></tr>";
+		}
 	}
 	$('#entity').html(content);
-
+	var header = "<h2>"+primaryName+"</h2>There are "+data.length+" relations assigned to this entity";
+	$('#entityHeader').html(header);
 }
 
 function getFeatureClasses(tier) {

@@ -42,27 +42,31 @@ public class Combined {
                     + "\uE000-\uFFFD"
                     + "\ud800\udc00-\udbff\udfff"
                     + "]";
-			
+			String adlgaz = "http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#";
+		    String rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+		    String muenster = "http://ifgi.uni-muenster.de/simcat/ontology/ftt#";
+		    String geo = "http://www.opengis.net/ont/geosparql#";
+		    
 			for(int z=0;z<46;z++) {
 				int offset = z*100000;
-			    String sqlquery="SELECT * FROM tbl_combined_agg ORDER BY feature_id LIMIT 100000 OFFSET "+offset+";";
+			    String sqlquery="SELECT * FROM vw_combined_related ORDER BY feature_id LIMIT 100000 OFFSET "+offset+";";
 			    
 			    ResultSet results= ex.s.executeQuery(sqlquery);
 			    Model model = ModelFactory.createDefaultModel();
-			    String adlgaz = "http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#";
-			    String rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-			    String muenster = "http://ifgi.uni-muenster.de/simcat/ontology/ftt#";
+			    
 			    model.setNsPrefix("adlgaz", "http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#");
 			    Property hasPrimaryName = model.createProperty(adlgaz+	"hasPrimaryName");
 			    Property hasAlternateName = model.createProperty(adlgaz+	"hasAlternateName");
 			    Property hasID = model.createProperty(adlgaz+	"hasID");
-			    Property hasExtent = model.createProperty(adlgaz+	"hasExtent");
+			    Property hasExtent = model.createProperty(geo+	"hasGeometry");
 			    Property hasDescription = model.createProperty(adlgaz+	"hasDescription");
 			    Property onPlanet = model.createProperty(adlgaz+	"onPlanet");
 			    Property hasEntryDate = model.createProperty(adlgaz+	"hasEntryDate");
 			    Property hasModifiedDate = model.createProperty(adlgaz+	"hasModifiedDate");
 			    Property hasFeatureType = model.createProperty(rdf+ "type");
 			    Property hasSchema = model.createProperty(adlgaz+	"hasSchema");
+			    Property relatedItem = model.createProperty(adlgaz+	"relatedItem");
+			    Property relatedFeature = model.createProperty(adlgaz+	"relatedFeature");
 			    Resource place = null;
 			    String primaryname = null;
 			    while (results.next()) {
@@ -70,6 +74,7 @@ public class Combined {
 			       boolean match = false;
 			       String[] names = results.getString("name").replace("{", "").replace("}","").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 			       String[] langs = results.getString("lang").replace("{", "").replace("}","").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
 			       for(int i=0;i<langs.length;i++){
 			    	   if(langs[i].trim().equals("eng")) {
 			    		   primaryname = names[i].replace("\"", "");
@@ -89,10 +94,32 @@ public class Combined {
 			    		   place.addProperty(hasAlternateName , model.createLiteral(names[i].replaceAll(xml10pattern, "").replace("\"", ""), (!langs[i].trim().equals("NULL") ? langs[i].trim() : "")));
 			    	   }
 			       }
+			       if (results.getString("related_features") != null) {
+			    	   if(results.getString("related_ids").indexOf(",") != -1) {
+				    	   String[] related_features = results.getString("related_features").replace("{", "").replace("}","").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+				    	   String[] related_ids = results.getString("related_ids").replace("{", "").replace("}","").split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+				    	   
+				    	   for(int i=0;i<related_ids.length;i++){
+				    		   if(!related_ids[i].equals("NULL")) {
+				    			   place.addProperty(relatedFeature, "http://adl-gazetteer.geog.ucsb.edu/ADL/"+related_features[i]); 
+				    		   } else {
+				    			   place.addProperty(relatedItem, "http://adl-gazetteer.geog.ucsb.edu/ADL/"+related_features[i]);
+				    		   }
+				    	   }
+			    	   } else {
+			    		   String related_features = results.getString("related_features").replace("{", "").replace("}","");
+			    		   String related_ids = results.getString("related_ids").replace("{", "").replace("}","");
+			    		   if(!related_ids.equals("NULL")) {
+			    			   place.addProperty(relatedFeature, "http://adl-gazetteer.geog.ucsb.edu/ADL/"+related_features); 
+			    		   } else {
+			    			   place.addProperty(relatedItem, "http://adl-gazetteer.geog.ucsb.edu/ADL/"+related_features);
+			    		   }
+			    	   }
+			       }       
 		           place.addProperty(onPlanet , results.getString("planet")); 
 		           place.addProperty(hasDescription , ((results.getString("short_description")==null) ? "" : results.getString("short_description").replaceAll(xml10pattern, ""))); 
 		           place.addProperty(hasSchema , ((results.getString("scheme_name")==null) ? "" : results.getString("scheme_name")));
-		           place.addProperty(hasExtent , results.getString("encoded_geometry").trim()); 
+		           place.addProperty(hasExtent , results.getString("encoded_geometry").trim()); //+"^^geo:wktLiteral"); 
 		           place.addProperty(hasEntryDate , model.createTypedLiteral(results.getString("entry_date"), XSDDatatype.XSDdate));
 		           place.addProperty(hasModifiedDate , model.createTypedLiteral(results.getString("modification_date"), XSDDatatype.XSDdate));
 		           place.addProperty(hasID , results.getString("feature_id"));
