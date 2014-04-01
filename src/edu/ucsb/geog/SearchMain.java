@@ -48,24 +48,68 @@ public class SearchMain extends HttpServlet {
 		
 		String searchTerm = "";
         String searchFeatures = "";
+        String searchGeometry = "";
         if (request.getParameterMap().containsKey("q")) {
         	searchTerm = request.getParameter("q");
         }
         if (request.getParameterMap().containsKey("ft")) {
         	searchFeatures = request.getParameter("ft");
         }
-        if (searchTerm.length() > 2) {
-        	getEntityDetailInfo(searchTerm, searchFeatures, out);
-        } else {
-        	out.print("Please supply more than 2 characters");
+        if (request.getParameterMap().containsKey("g")) {
+        	searchGeometry = request.getParameter("g");
         }
+        //if (searchTerm.length() > 2) {
+        	getEntityDetailInfo(searchTerm, searchFeatures, searchGeometry, out);
+        //} else {
+        	//out.print("Please supply more than 2 characters");
+       // }
 	}
 
-	private void getEntityDetailInfo(String searchTerm, String searchFeatures, PrintWriter out) {
+	private void getEntityDetailInfo(String searchTerm, String searchFeatures, String searchGeometry, PrintWriter out) {
 
-		Query query = QueryFactory.create(StringPrefix.queryPrefix+"SELECT distinct ?a (str(?b) AS ?name) ?c WHERE {?a stko:hasPrimaryName ?b . ?a stko:hasAlternateName ?d . ?a rdf:type ?c . FILTER( regex(str(?b), \""+searchTerm+"\") || regex(str(?d), \""+searchTerm+"\") ) }"); 
-
+		String q = "";
+		if (searchFeatures.length() < 1 && searchGeometry.length() < 1) {
+			q = "SELECT DISTINCT ?a (str(?b) AS ?name) ?c WHERE {?a stko:hasPrimaryName ?b . ?a stko:hasAlternateName ?d . ?a rdf:type ?c . FILTER( regex(str(?b), \""+searchTerm+"\") || regex(str(?d), \""+searchTerm+"\") ) }"; 
+		} else if (searchFeatures.length() < 1) {
+			q = "SELECT DISTINCT ?a (str(?b) AS ?name) ?c WHERE { ?a rdf:type ?c . ?a stko:hasAlternateName ?d . ?a stko:hasPrimaryName ?b . ?a geo:hasGeometry ?bGeom . ?bGeom geo:asWKT ?bWKT . FILTER (geof:sfWithin(?bWKT, \""+searchGeometry+"\"^^sf:wktLiteral)) . FILTER( regex(str(?b), \""+searchTerm+"\") || regex(str(?d), \""+searchTerm+"\") )}";
+		} else if (searchGeometry.length() > 1){
+			q = "SELECT DISTINCT ?a (str(?b) AS ?name) ?c WHERE { ?a rdf:type ?c . ";
+			if(searchFeatures.indexOf(",") != -1) {
+				String[] features = searchFeatures.split(",");
+				for(int i=0;i<features.length;i++) {
+					q += "{ ?a rdf:type <http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#"+features[i]+"> }";
+					if (i < features.length - 1) {
+						q += " UNION ";
+					}
+				}
+			} else {
+				q += "?a rdf:type <http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#"+searchFeatures+">";
+			}
+			q += " . ";
+			q += "?a stko:hasAlternateName ?d . ?a stko:hasPrimaryName ?b . ?a geo:hasGeometry ?bGeom . ?bGeom geo:asWKT ?bWKT . ";
+			q += "FILTER (geof:sfWithin(?bWKT, \""+searchGeometry+"\"^^sf:wktLiteral)) . ";
+			q += "FILTER( regex(str(?b), \""+searchTerm+"\") || regex(str(?d), \""+searchTerm+"\") )}";
+		} else {
+			q = "SELECT DISTINCT ?a (str(?b) AS ?name) ?c WHERE { ?a rdf:type ?c . ";
+			if(searchFeatures.indexOf(",") != -1) {
+				String[] features = searchFeatures.split(",");
+				for(int i=0;i<features.length;i++) {
+					q += "{ ?a rdf:type <http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#"+features[i]+"> }";
+					if (i < features.length - 1) {
+						q += " UNION ";
+					}
+				}
+			} else {
+				q += "?a rdf:type <http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#"+searchFeatures+">";
+			}
+			q += " . ";
+			q += "?a stko:hasAlternateName ?d . ?a stko:hasPrimaryName ?b . ";
+			q += "FILTER( regex(str(?b), \""+searchTerm+"\") || regex(str(?d), \""+searchTerm+"\") )}";
+		}
+		
+		Query query = QueryFactory.create(StringPrefix.queryPrefix+q);
 		QueryExecution qe = QueryExecutionFactory.sparqlService(StringPrefix.serviceEndpoint,query);
+		
 		try 
 		{
 			ResultSet rs = qe.execSelect();

@@ -8,15 +8,30 @@ body {
 }
 #map {
 	width: 100%; 
-	height: 100%;
-	top:0px;
+	top:60px;
+	bottom: 0px;
 	left:0px;
 	position:absolute;
+}
+#header {
+	position:absolute;
+	background-color: #ffffff;
+	font-family: 'Rambla', sans-serif;
+	font-size: 2.3em;
+	font-weight:bold;
+	width:100%;
+	height:60px;
+	top:0px;
+	left:0px;
+	z-index:100;
+	-moz-box-shadow: 0px 10px 15px #333;
+	-webkit-box-shadow: 0px 10px 15px #333;
+	box-shadow: 0px 10px 15px #333;
 }
 #search {
 	position: absolute;
 	z-index:100;
-	top:10px;
+	top:70px;
 	right:10px;
 	width:300px;
 	background-color:#ffffff;
@@ -32,11 +47,11 @@ input.search {
 	font-family: 'Rambla', sans-serif;
 	font-size: 1em;
 	color: #333333;
-	
+	font-style:italic;
 }
 h2 {
 	margin:0;
-	padding:0px 5px;
+	padding:0px 5px 10px 0px;
 }
 #uxSearchExtent{
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -117,12 +132,24 @@ h2 {
 #wrapperResults {
 	position: absolute;
 	bottom:0px;
+	top:60%;
 	z-index:3000;
 	background-color:#ffffff;
-	height:300px;
+	// height:300px;
 	width:100%;
 	opacity:0.8;
 	filter:alpha(opacity=80); /* For IE8 and earlier */
+	display:none;
+}
+#minimize {
+	right:5px;
+	position:absolute;
+	z-index:100;
+	top:5px;
+	background-image: url('../img/down.png');
+	width:16px;
+	height:16px;
+	cursor:pointer;
 }
 #results, #entity {
 	padding:10px;
@@ -133,7 +160,7 @@ h2 {
 #resultsHeader, #entityHeader {
 	padding:10px;
 	line-height:20px;
-	height:30px;
+	height:33px;
 }
 td.resultEntity {
 	padding:5px 20px;

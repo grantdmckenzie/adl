@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Test:Alexandria Digital Library</title>
+	<title>Alexandria Digital Library 2.0</title>
 	<meta charset="utf-8" />
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +13,25 @@
 	<link rel="stylesheet" href="css/jstree.css" />
 </head>
 <body>
+	<div id="header">
+		<img style="float:left;height:50px;padding:5px 5px 5px 10px" src="img/adl.gif"/>
+		<div style="padding:15px 5px;float:left">Alexandria Digitial Library (LD)</div>
+		<img style="float:left;width:25px;" src="img/beta.png"/>
+		<div style="float:right;font-size:0.5em;padding-top:30px;padding-right:20px;font-weight:normal">About | UCSB Library | Credits | Feedback</div>
+	</div>
 	<div id="map"></div>
 	<div id="search">
-		<h2>Alexandria Digital Library</h2><br/>
+		<h2>Search</h2>
 		<input class="search" type="text" id="uxSearchTerm" value="angola" /><br/>
 		<div id="uxSearchExtent">Map Extent</div><br/>
 		<br/>
-		Feature Type:<br/><div id="jstree_demo_div" style="height:150px;width:100%;overflow-y:scroll;position:relative"></div>
+		Feature Type:<br/><div id="jstree_demo_div" style="height:150px;width:100%;overflow-y:scroll;position:relative">
+			<div id="sideLoad" style="text-align:center;padding-top:30px;"><img src="img/loading.GIF"/><br/>Loading Feature Types</div>
+		</div>
 		<div id="search_submit" onclick="onSearch();">SEARCH</div>
 	</div>
 	<div id="wrapperResults">
+		<div id="minimize"></div>
 		<div style="float:left;width:50%">
 			<div id="resultsHeader"></div>
 			<div id="results"></div>

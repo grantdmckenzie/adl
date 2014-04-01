@@ -10,12 +10,14 @@ var _tier = 1;
 var features = {};
 var jstreedata = [];
 var marker = null;
+var selectedjstree = [];
 
 $(function () { 
 	
 	getFeatureClasses(1);
 	$('#jstree_demo_div').on("changed.jstree", function (e, data) {
-	  console.log(data.selected);
+	  // console.log(data.selected);
+	  selectedjstree = data.selected;
 	});
 	$('#uxSearchExtent').on("click", function() {
 		$(this).toggleClass("on");
@@ -24,12 +26,23 @@ $(function () {
 	String.prototype.capitalize = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
 	};
+	
 });
 
 function onSearch() {
+	$('#wrapperResults').fadeIn();
+	$('#search_submit').html("<img src=\"img/loading_h.GIF\"/>");
 	var params = {};
+	if($('#uxSearchExtent').hasClass('on')) {
+		var b = map.getBounds();
+		params.g = "POLYGON(("+b.getSouth() + " "+b.getWest() + ", " + b.getSouth() + " "+b.getEast() + ", " + b.getNorth() + " " + b.getEast() + ", " + b.getNorth() + " " + b.getWest()  + ", " + b.getSouth() + " "+b.getWest()+"))";
+	}
+	if(selectedjstree.length > 0) {
+		params.ft = selectedjstree.join();
+	}
 	params.q = encodeURIComponent($('#uxSearchTerm').val());
 	
+
 	$.ajax({
       type: 'GET',
 	  'dataType': "json",
@@ -37,10 +50,15 @@ function onSearch() {
 	  'url': 'SearchMain',
 	  'success': function(data){
 		  	displayResults(data.c);
+		  	$('#search_submit').html("SEARCH");
 	  },
 	  'error': function(response) {
 	  	console.error(response);
-	  	alert("error");
+	  	// alert("Sorry, no entities found matching the specified criteria");
+	  	var header = "<h2>Search Results</h2>Sorry, no entities found matching the specified criteria.";
+		$('#resultsHeader').html(header);
+		$('#results').html("");
+		$('#search_submit').html("SEARCH");
 	  }
 	});
 }
@@ -48,9 +66,13 @@ function onSearch() {
 function displayResults(data) {
 	var header = "<h2>Search Results</h2>There are "+data.length+" entities matching your search criteria...";
 	$('#resultsHeader').html(header);
+	var prev = "";
 	var content = "<table><tr><td class=\"resultEntity\" style=\"text-decoration:none;font-weight:bold;\">Entity</td><td class=\"resultEntity\" style=\"text-decoration:none;font-weight:bold;\">Feature Type</td></tr>";
 	for(var i in data) {
-		content += "<tr><td style=\"cursor:pointer;text-decoration: underline;\" class=\"resultEntity\" onclick=\"getEntityDetails('"+data[i].uri+"')\">"+data[i].name + "</td><td class=\"resultEntity\">" + data[i].ft.replace(/_/gi,' ').capitalize() + "</td></tr>";
+		if (data[i].uri != prev) {
+			content += "<tr><td style=\"cursor:pointer;text-decoration: underline;\" class=\"resultEntity\" onclick=\"getEntityDetails('"+data[i].uri+"')\">"+data[i].name + "</td><td class=\"resultEntity\">" + data[i].ft.replace(/_/gi,' ').capitalize() + "</td></tr>";
+			prev = data[i].uri;
+		}
 	}
 	$('#results').html(content);
 }
@@ -79,9 +101,18 @@ function displayEntityInfo(data) {
 		}
 		if(data[i].rel == "hasPrimaryName") {
 			primaryName = data[i].val.replace("@en","");
-		}
-		if (data[i].rel == "relatedFeature") {
-			content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td style=\"cursor:pointer;text-decoration: underline;\" class=\"resultEntity\" onclick=\"getEntityDetails('"+data[i].val+"')\">" + data[i].val + "</td></tr>";
+			content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td class=\"resultEntity\">" + primaryName + "</td></tr>"
+		} else if (data[i].rel == "relatedFeature") {
+			content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td style=\"cursor:pointer;text-decoration: underline;\" class=\"resultEntity\" onclick=\"getEntityDetails('"+data[i].val+"')\">" + data[i].val.replace("http://adl-gazetteer.geog.ucsb.edu/ADL/","").replace(/_/g," ").capitalize() + "</td></tr>";
+		} else if (data[i].rel == "type") {
+			content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td class=\"resultEntity\">" + data[i].val.replace("http://adl-gazetteer.geog.ucsb.edu/ONT/ADL#","").replace("_"," ").capitalize() + "</td></tr>";
+		} else if (data[i].rel == "hasModifiedDate" || data[i].rel == "hasEntryDate") {
+			content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td class=\"resultEntity\">" + data[i].val.substring(0,10) + "</td></tr>";
+		} else if (data[i].rel == "relatedItem") {
+			content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td class=\"resultEntity\">" + data[i].val.replace("http://adl-gazetteer.geog.ucsb.edu/ADL/","").replace(/_/g," ") + "</td></tr>";
+		} else if (data[i].rel == "hasDescription") {
+			if (data[i].val.length > 0)
+				content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td class=\"resultEntity\">" + data[i].val.replace("http://adl-gazetteer.geog.ucsb.edu/ADL/","").replace(/_/g," ") + "</td></tr>";
 		} else {
 			content += "<tr><td class=\"resultEntity\">"+data[i].rel + "</td><td class=\"resultEntity\">" + data[i].val + "</td></tr>";
 		}
@@ -89,6 +120,7 @@ function displayEntityInfo(data) {
 	$('#entity').html(content);
 	var header = "<h2>"+primaryName+"</h2>There are "+data.length+" relations assigned to this entity";
 	$('#entityHeader').html(header);
+	// $('#wrapperResults').slideUp();
 }
 
 function getFeatureClasses(tier) {
@@ -114,11 +146,11 @@ function processFeatures(data, tier) {
 		for(var i in data) {
 			if(features.hasOwnProperty(data[i].p)) {
 				features[data[i].p][data[i].e] = {};
-				jstreedata.push({"id" : data[i].e, "parent" : data[i].p, "text" : data[i].e.replace(/_/gi,' ').capitalize() });
+				//jstreedata.push({"id" : data[i].e, "parent" : data[i].p, "text" : data[i].e.replace(/_/gi,' ').capitalize() });
 			} else {
 				features[data[i].p] = {};
 				features[data[i].p][data[i].e] = {};
-				jstreedata.push({"id" : data[i].p, "parent" : "#", "text" : data[i].p.replace(/_/gi,' ').capitalize() });
+				//jstreedata.push({"id" : data[i].p, "parent" : "#", "text" : data[i].p.replace(/_/gi,' ').capitalize() });
 			}
 		}
 	} else if (tier == 2){
@@ -127,7 +159,7 @@ function processFeatures(data, tier) {
 				for(var h in features[j]) {
 					if(h == data[i].p) {
 						features[j][h][data[i].e] = {};
-						//jstreedata.push({"id" : data[i].e, "parent" : data[i].p, "text" : data[i].e });
+						// jstreedata.push({"id" : data[i].e, "parent" : data[i].p, "text" : data[i].e });
 					}
 				}
 			}
@@ -157,6 +189,19 @@ function processFeatures(data, tier) {
 					}
 				}
 			}
+		}
+		for(var a in features) {
+			jstreedata.push({"id" : a, "parent" : "#", "text" : a.replace(/_/gi,' ').capitalize() });
+			for(var b in features[a]) {
+				jstreedata.push({"id" : b, "parent" : a, "text" : b.replace(/_/gi,' ').capitalize() });
+				for(var c in features[a][b]) {
+					jstreedata.push({"id" : c, "parent" : b, "text" : c.replace(/_/gi,' ').capitalize() });
+					for(var d in features[a][b][c]) {
+						jstreedata.push({"id" : d, "parent" : c, "text" : d.replace(/_/gi,' ').capitalize() });
+					}
+				}
+			}
+			
 		}
 		$('#jstree_demo_div').jstree({ 'core' : {
 		    'data' : jstreedata
